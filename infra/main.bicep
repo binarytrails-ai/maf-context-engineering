@@ -126,18 +126,18 @@ module aiDependencies 'modules/ai-services.bicep' = {
 }
 
 // Deploy Cosmos DB for chat history and user profiles
-module cosmosDb 'modules/cosmos-db.bicep' = {
-  scope: rg
-  name: 'cosmos-${uniqueSuffixValue}'
-  params: {
-    cosmosDbAccountName: resourceNames.cosmosDb
-    cosmosDbDatabaseName: 'ContosoTravelDb'
-    chatHistoryContainerName: 'ChatHistory'
-    location: location
-    tags: tags
-    vectorDimensions: 3072
-  }
-}
+// module cosmosDb 'modules/cosmos-db.bicep' = {
+//   scope: rg
+//   name: 'cosmos-${uniqueSuffixValue}'
+//   params: {
+//     cosmosDbAccountName: resourceNames.cosmosDb
+//     cosmosDbDatabaseName: 'ContosoTravelDb'
+//     chatHistoryContainerName: 'ChatHistory'
+//     location: location
+//     tags: tags
+//     vectorDimensions: 3072
+//   }
+// }
 
 // Deploy App Service (Frontend and Backend)
 // module app 'modules/app.bicep' = {
@@ -182,8 +182,3 @@ output AZURE_AI_SERVICES_KEY string = aiFoundryAccount.outputs.apiKey
 
 output AZURE_OPENAI_DEPLOYMENT_NAME string = chatCompletionModel
 output AZURE_TEXT_MODEL_NAME string = chatCompletionModel //TODO: to be removed when the notebook is updated
-
-output COSMOS_DB_ENDPOINT string = cosmosDb.outputs.cosmosDbEndpoint
-output COSMOS_DB_CONNECTION_STRING string = cosmosDb.outputs.cosmosDbConnectionString
-output COSMOS_DB_DATABASE_NAME string = cosmosDb.outputs.cosmosDbDatabaseName
-output COSMOS_DB_CHAT_HISTORY_CONTAINER string = cosmosDb.outputs.chatHistoryContainerName
